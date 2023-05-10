@@ -7,7 +7,7 @@ export default function Payment() {
 
   return (
     <div>
-      {false ? (
+      {enrollment ? (
         <TicketAndPaymentInfo />
       ) : (
         <EmptPage
