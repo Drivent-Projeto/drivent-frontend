@@ -11,6 +11,7 @@ export default function OptionButton({
   setTotal,
   baseValue,
   titles,
+
 }) {
   function setValue() {
     addValue(value);
@@ -18,10 +19,12 @@ export default function OptionButton({
     setSelected(type.id);
   }
 
+
   return (
     <>
       <StyledOptionButton selected={selected === type.id} onClick={() => setValue()}>
         <h1>{name ? titles[0] : titles[1]}</h1>
+
         <h2>
           {plus && '+ '}R$ {value ? value : 0}
         </h2>

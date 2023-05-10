@@ -13,6 +13,7 @@ export default function TicketAndPaymentInfo() {
   const [selectedModality, setSelectedModality] = useState(0);
   const [modalityHotel, setModalityHotel] = useState([{ id: 1, name: 'Sem Hotel', price: 0, value: true }, { id: 2, name: 'Com Hotel', price: 350, value: false }]);
 
+
   return (
     <>
       <StyledTypography variant="h4">Ingresso e pagamento</StyledTypography>
@@ -20,13 +21,16 @@ export default function TicketAndPaymentInfo() {
       <OptionsContayner>
         {types &&
           types.map((t) => (
+
             !t.includesHotel && <OptionButton
+
               key={t.id}
               name={t.isRemote}
               type={t}
               value={t.price}
               selected={selectedType}
               setSelected={setSelectedType}
+
               setTotal={setTotal}              
               addValue={setTicketValue}
               baseValue={hotelValue}
@@ -55,7 +59,7 @@ export default function TicketAndPaymentInfo() {
       <StyledSubT>Fechado! O total em <strong>R$ {total}</strong>. Agora é só confirmar</StyledSubT>
       
     </>
-    
+
   );
 }
 
