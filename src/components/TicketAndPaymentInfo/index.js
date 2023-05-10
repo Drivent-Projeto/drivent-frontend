@@ -1,8 +1,10 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import useTicketTypes from '../../hooks/api/useTicketTypes';
+import Button from '../Form/Button';
 import { StyledTypography } from '../PersonalInformationForm';
 import OptionButton from './OptionButton';
-import { useState } from 'react';
-import useTicketTypes from '../../hooks/api/useTicketTypes';
 
 export default function TicketAndPaymentInfo() {
   const { types } = useTicketTypes();
@@ -34,6 +36,7 @@ export default function TicketAndPaymentInfo() {
                   baseValue={hotelValue}
                   titles={['Online', 'Presencial']}
                   setLastType={setLastType}
+                  plus={selectedModality}
                 />
               )
           )}
@@ -68,10 +71,17 @@ export default function TicketAndPaymentInfo() {
 
       {lastType !== 0 &&
         lastType && (
-        <StyledSubT>
-            Fechado! O total em <strong>R$ {lastType.isRemote ? lastType?.price : selectedModality?.price}</strong>.
+        <>
+          <StyledSubT>
+            Fechado! O total ficou em <strong>R$ {lastType.isRemote ? lastType?.price : selectedModality?.price}</strong>.
             Agora é só confirmar
-        </StyledSubT>
+          </StyledSubT>
+          <Link to="/dashboard/payment/finish">
+            <Button type="button">
+              RESERVAR INGRESSO
+            </Button>
+          </Link>
+        </>
       )}
     </>
   );

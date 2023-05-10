@@ -21,7 +21,6 @@ export default function OptionButton({
     setSelected(type);
     if (plus || type.isRemote) setLastType(type);
     else setLastType(0);
-    console.log(type);
   }
 
   return (
@@ -30,7 +29,7 @@ export default function OptionButton({
         <h1>{name ? titles[0] : titles[1]}</h1>
 
         <h2>
-          {plus && '+ '}R$ {value ? value : 0}
+          {plus ? '+ ' : ''}R$ {value ? value : 0}
         </h2>
       </StyledOptionButton>
     </>
