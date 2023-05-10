@@ -11,18 +11,22 @@ export default function OptionButton({
   setTotal,
   baseValue,
   titles,
-
+  setLastType,
 }) {
   function setValue() {
     addValue(value);
     setTotal(value + baseValue);
-    setSelected(type.id);
+    if (type.isRemote) setTotal(value);
+    else setTotal(value + baseValue);
+    setSelected(type);
+    if (plus || type.isRemote) setLastType(type);
+    else setLastType(0);
+    console.log(type);
   }
-
 
   return (
     <>
-      <StyledOptionButton selected={selected === type.id} onClick={() => setValue()}>
+      <StyledOptionButton selected={selected.id === type.id} onClick={() => setValue()}>
         <h1>{name ? titles[0] : titles[1]}</h1>
 
         <h2>

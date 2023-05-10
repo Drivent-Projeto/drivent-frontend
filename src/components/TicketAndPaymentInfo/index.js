@@ -11,8 +11,7 @@ export default function TicketAndPaymentInfo() {
   const [total, setTotal] = useState(ticketValue + hotelValue);
   const [selectedType, setSelectedType] = useState(0);
   const [selectedModality, setSelectedModality] = useState(0);
-  const [modalityHotel, setModalityHotel] = useState([{ id: 1, name: 'Sem Hotel', price: 0, value: true }, { id: 2, name: 'Com Hotel', price: 350, value: false }]);
-
+  const [lastType, setLastType] = useState();
 
   return (
     <>
@@ -20,46 +19,61 @@ export default function TicketAndPaymentInfo() {
       <StyledSubT>Primeiro, escolha sua modalidade de ingresso</StyledSubT>
       <OptionsContayner>
         {types &&
-          types.map((t) => (
-
-            !t.includesHotel && <OptionButton
-
-              key={t.id}
-              name={t.isRemote}
-              type={t}
-              value={t.price}
-              selected={selectedType}
-              setSelected={setSelectedType}
-
-              setTotal={setTotal}              
-              addValue={setTicketValue}
-              baseValue={hotelValue}
-              titles={['Online', 'Presencial']}
-            />
-          ))}
+          types.map(
+            (t) =>
+              !t.includesHotel && (
+                <OptionButton
+                  key={t.id}
+                  name={t.isRemote}
+                  type={t}
+                  value={t.price}
+                  selected={selectedType}
+                  setSelected={setSelectedType}
+                  setTotal={setTotal}
+                  addValue={setTicketValue}
+                  baseValue={hotelValue}
+                  titles={['Online', 'Presencial']}
+                  setLastType={setLastType}
+                />
+              )
+          )}
       </OptionsContayner>
+      {selectedType !== 0 && !selectedType.isRemote && (
+        <>
+          <StyledSubT>Ótimo! Agora escolha sua modalidade de hospedagem</StyledSubT>
+          <OptionsContayner>
+            {types &&
+              types.map(
+                (t) =>
+                  !t.isRemote && (
+                    <OptionButton
+                      key={t.id}
+                      name={!t.includesHotel}
+                      type={t}
+                      value={t.price - ticketValue}
+                      selected={selectedModality}
+                      setSelected={setSelectedModality}
+                      setTotal={setTotal}
+                      addValue={setHotelValue}
+                      baseValue={ticketValue}
+                      titles={['Sem Hotel', 'Com Hotel']}
+                      setLastType={setLastType}
+                      plus={true}
+                    />
+                  )
+              )}
+          </OptionsContayner>
+        </>
+      )}
 
-      <StyledSubT>Ótimo! Agora escolha sua modalidade de hospedagem</StyledSubT>
-      <OptionsContayner>
-        {modalityHotel.map((t) => (
-          <OptionButton
-            name={t.value}
-            type={t}
-            value={t.price}
-            selected={selectedModality}
-            setSelected={setSelectedModality}
-            setTotal={setTotal}
-            addValue={setHotelValue}
-            baseValue={ticketValue}
-            titles={['Sem Hotel', 'Com Hotel']}
-          />
-        ))}
-      </OptionsContayner>
-
-      <StyledSubT>Fechado! O total em <strong>R$ {total}</strong>. Agora é só confirmar</StyledSubT>
-      
+      {lastType !== 0 &&
+        lastType && (
+        <StyledSubT>
+            Fechado! O total em <strong>R$ {lastType.isRemote ? lastType?.price : selectedModality?.price}</strong>.
+            Agora é só confirmar
+        </StyledSubT>
+      )}
     </>
-
   );
 }
 
