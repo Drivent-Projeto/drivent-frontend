@@ -9,7 +9,10 @@ export default function TicketAndPaymentInfo() {
   const [ticketValue, setTicketValue] = useState(0);
   const [hotelValue, setHotelValue] = useState(0);
   const [total, setTotal] = useState(ticketValue + hotelValue);
-  const [selectedType, setSelectedType] = useState(-1);
+  const [selectedType, setSelectedType] = useState(0);
+  const [selectedModality, setSelectedModality] = useState(0);
+  const [modalityHotel, setModalityHotel] = useState([{ id: 1, name: 'Sem Hotel', price: 0, value: true }, { id: 2, name: 'Com Hotel', price: 350, value: false }]);
+
 
   return (
     <>
@@ -18,21 +21,45 @@ export default function TicketAndPaymentInfo() {
       <OptionsContayner>
         {types &&
           types.map((t) => (
-            <OptionButton
+
+            !t.includesHotel && <OptionButton
+
               key={t.id}
               name={t.isRemote}
               type={t}
               value={t.price}
               selected={selectedType}
               setSelected={setSelectedType}
-              setTotal={setTotal}
+
+              setTotal={setTotal}              
               addValue={setTicketValue}
               baseValue={hotelValue}
+              titles={['Online', 'Presencial']}
             />
           ))}
-        <div>total:{total}</div>
       </OptionsContayner>
+
+      <StyledSubT>Ótimo! Agora escolha sua modalidade de hospedagem</StyledSubT>
+      <OptionsContayner>
+        {modalityHotel.map((t) => (
+          <OptionButton
+            name={t.value}
+            type={t}
+            value={t.price}
+            selected={selectedModality}
+            setSelected={setSelectedModality}
+            setTotal={setTotal}
+            addValue={setHotelValue}
+            baseValue={ticketValue}
+            titles={['Sem Hotel', 'Com Hotel']}
+          />
+        ))}
+      </OptionsContayner>
+
+      <StyledSubT>Fechado! O total em <strong>R$ {total}</strong>. Agora é só confirmar</StyledSubT>
+      
     </>
+
   );
 }
 
