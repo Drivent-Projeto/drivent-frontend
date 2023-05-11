@@ -9,7 +9,7 @@ import OptionButton from './OptionButton';
 export default function TicketAndPaymentInfo() {
   const { types } = useTicketTypes();
   const [ticketValue, setTicketValue] = useState(0);
-  const [hotelValue, setHotelValue] = useState(0);
+  const [hotelValue, setHotelValue] = useState(0); // eslint-disable-next-line
   const [total, setTotal] = useState(ticketValue + hotelValue);
   const [selectedType, setSelectedType] = useState(0);
   const [selectedModality, setSelectedModality] = useState(0);
@@ -87,7 +87,7 @@ export default function TicketAndPaymentInfo() {
   );
 }
 
-const StyledSubT = styled.h3`
+export const StyledSubT = styled.h3`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
