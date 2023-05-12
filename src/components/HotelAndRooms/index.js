@@ -1,47 +1,21 @@
-// import useHotels from '../../hooks/api/useHotels';
 import styled from 'styled-components';
+import useHotels from '../../hooks/api/useHotels';
 import { TitleAndSubtitle } from '../TitleAndSubtitle';
+import HotelCard from './HotelCard';
 
 export function HotelAndRooms() {
-  //   const { hotels } = useHotels();
-  const hotels = [
-    {
-      id: 67,
-      name: 'Ginger Schuppe',
-      image: 'http://loremflickr.com/640/480',
-      createdAt: '2023-05-11T22:48:55.189Z',
-      updatedAt: '2023-05-11T22:48:55.189Z',
-    },
-    {
-      id: 68,
-      name: 'Vincent Roberts',
-      image: 'http://loremflickr.com/640/480',
-      createdAt: '2023-05-11T22:48:55.199Z',
-      updatedAt: '2023-05-11T22:48:55.200Z',
-    },
-    {
-      id: 69,
-      name: 'Johnnie Johns DVM',
-      image: 'http://loremflickr.com/640/480',
-      createdAt: '2023-05-11T22:48:55.205Z',
-      updatedAt: '2023-05-11T22:48:55.206Z',
-    },
-  ];
+  const { hotels } = useHotels();
+
   return (
     <>
       <TitleAndSubtitle title={'Escolha de hotel e quarto'} subtitle={'Primeiro, escolha seu hotel'} />
       <HotelContainer>
         {hotels?.map((hotel) => (
-          <div>
-            <img src={hotel.image} alt="hotel" />
-            <h1>{hotel.name}</h1>
-            <h2>Tipos de acomodação:</h2>
-            <h3>Single e Double</h3>
-            <h2>Vagas disponíveis:</h2>
-            <h3>103</h3>
-          </div>
+          <HotelCard key={hotel.id} hotel={hotel} />
         ))}
       </HotelContainer>
+      <TitleAndSubtitle subtitle={'Ótima pedida! Agora escolha seu quarto:'} />
+
     </>
   );
 }

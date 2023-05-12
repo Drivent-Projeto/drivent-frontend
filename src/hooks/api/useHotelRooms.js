@@ -5,9 +5,9 @@ import useToken from '../useToken';
 export default function useHotelRooms(hotelId) {
   const token = useToken();
 
-  const { data: hotel } = useAsync(() => hotelApi.getHotelWhithRooms(token, hotelId));
+  const { data: hotelRooms } = useAsync(() => hotelApi.getHotelWhithRooms(token, hotelId), true);
 
   return {
-    hotel,
+    hotelRooms,
   };
 }
