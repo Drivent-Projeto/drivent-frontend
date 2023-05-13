@@ -6,7 +6,7 @@ export default function HotelCard({ hotel }) {
   //   const
   const emptyRoomSpace = hotelRooms?.Rooms.map(({ capacity }) => capacity).reduce((a, b) => {
     return a + b;
-  })
+  });
   return (
     <div>
       <img src={hotel.image} alt="hotel" />
