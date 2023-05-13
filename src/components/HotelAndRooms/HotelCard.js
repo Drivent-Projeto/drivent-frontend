@@ -3,8 +3,7 @@ import { RoomTypes } from './RoomTypes';
 
 export default function HotelCard({ hotel }) {
   const { hotelRooms } = useHotelRooms(hotel.id);
-  //   const
-  const emptyRoomSpace = hotelRooms?.Rooms.map(({ capacity }) => capacity).reduce((a, b) => {
+  const emptyRoomSpace = hotelRooms?.Rooms.map(({ capacity, Booking }) => capacity - Booking.length).reduce((a, b) => {
     return a + b;
   });
   return (
