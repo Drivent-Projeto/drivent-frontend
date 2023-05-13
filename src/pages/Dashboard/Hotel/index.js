@@ -1,10 +1,9 @@
 import EmptPage from '../../../components/EmptPage';
 import { HotelAndRooms } from '../../../components/HotelAndRooms';
-// import useTicket from '../../../hooks/api/useTicket';
+import useTicket from '../../../hooks/api/useTicket';
 
 export default function Hotel() {
-  // const { ticket } = useTicket();
-  const ticket = { isRemote: false };
+  const { ticket } = useTicket();
 
   return (
     <div>
@@ -16,15 +15,14 @@ export default function Hotel() {
         />
       )}
 
-      {ticket?.isRemote && (
+      {ticket?.TicketType.includesHostel ? (
+        <HotelAndRooms />
+      ): (
         <EmptPage
           pageName="Escolha de hotel e quarto"
-          message="Sua modalidade de ingresso não inclui hospedagem
-            Prossiga para a escolha de atividades"
+          message="Sua modalidade de ingresso não inclui hospedagem<br />Prossiga para a escolha de atividades"
         />
       )}
-
-      {ticket && !ticket?.isRemote && <HotelAndRooms />}
 
       {/* {ticket ? (
               ticket.isRemote ? (
