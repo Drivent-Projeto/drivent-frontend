@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
+import Cards from 'react-credit-cards';
+import 'react-credit-cards/es/styles-compiled.css';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import useSavePayment from '../../hooks/api/useSavePayment';
+import useSaveTicket from '../../hooks/api/useSaveTicket';
+import useTicket from '../../hooks/api/useTicket';
 import useTicketTypes from '../../hooks/api/useTicketTypes';
 import Button from '../Form/Button';
 import { StyledTypography } from '../PersonalInformationForm';
-import OptionButton from './OptionButton';
-import 'react-credit-cards/es/styles-compiled.css';
-import Cards from 'react-credit-cards';
 import vetor from './../../assets/images/vector.png';
-import useSaveTicket from '../../hooks/api/useSaveTicket';
-import { toast } from 'react-toastify';
-import useTicket from '../../hooks/api/useTicket';
-import useSavePayment from '../../hooks/api/useSavePayment';
+import OptionButton from './OptionButton';
 
 export default function TicketAndPaymentInfo() {
   const { types } = useTicketTypes();
@@ -255,9 +255,6 @@ export default function TicketAndPaymentInfo() {
   );
 }
 
-<<<<<<< Updated upstream
-export const StyledSubT = styled.h3`
-=======
 const PaymentConfirmedContainer = styled.div`  
     width: 420px;
     height: 100%; 
@@ -322,8 +319,7 @@ const StyledWrapper = styled.div`
   display: flex;
 `;
 
-const StyledSubT = styled.h3`
->>>>>>> Stashed changes
+export const StyledSubT = styled.h3`
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
