@@ -15,7 +15,7 @@ export default function Hotel() {
         />
       )}
 
-      {ticket?.TicketType.includesHostel ? (
+      {ticket?.TicketType.includesHotel ? (
         <HotelAndRooms />
       ): (
         <EmptPage
