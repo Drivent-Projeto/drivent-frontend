@@ -4,6 +4,9 @@ import { RoomTypes } from './RoomTypes';
 export default function HotelCard({ hotel }) {
   const { hotelRooms } = useHotelRooms(hotel.id);
   //   const
+  const emptyRoomSpace = hotelRooms?.Rooms.map(({ capacity }) => capacity).reduce((a, b) => {
+    return a + b;
+  })
   return (
     <div>
       <img src={hotel.image} alt="hotel" />
@@ -13,9 +16,7 @@ export default function HotelCard({ hotel }) {
       <h2>Vagas disponíveis:</h2>
       {/* <h3>{hotelRooms?.Rooms.length}</h3> */}
       <h3>
-        {hotelRooms?.Rooms.map(({ capacity }) => capacity).reduce((a, b) => {
-          return a + b;
-        })}
+        {emptyRoomSpace}
       </h3>
     </div>
   );
