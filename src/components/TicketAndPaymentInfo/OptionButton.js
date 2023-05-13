@@ -42,6 +42,7 @@ const StyledOptionButton = styled.button`
   border: 1px solid #cecece;
   border-radius: 20px;
   background: ${(props) => (props.selected ? '#FFEED2' : 'transparent')};
+  cursor: pointer;
   h1 {
     font-family: 'Roboto';
     font-style: normal;
