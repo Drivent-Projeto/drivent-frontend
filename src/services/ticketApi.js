@@ -20,11 +20,7 @@ export async function getTicketTypes(token) {
   return response.data;
 }
 
-<<<<<<< Updated upstream
 export async function getUserTicket(token) {
-=======
-export async function getTicket(token) {
->>>>>>> Stashed changes
   const response = await api.get('/tickets', {
     headers: {
       Authorization: `Bearer ${token}`,
