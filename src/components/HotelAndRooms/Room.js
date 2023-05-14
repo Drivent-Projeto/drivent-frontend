@@ -29,7 +29,7 @@ const StyledRoom = styled.button`
   height: 45px;
   border: 1px solid #cecece;
   border-radius: 10px;
-  background-color: ${({ selected, disabled }) => disabled ? '#E9E9E9' : (selected ? '#FFEED2' : 'transparent' )};
+  background-color: ${({ selected, disabled }) => (disabled ? '#E9E9E9' : selected ? '#FFEED2' : 'transparent')};
   padding: 0 16px;
 
   align-items: center;
@@ -42,5 +42,4 @@ const StyledRoom = styled.button`
   color: #454545;
   filter: grayscale(${({ disabled }) => (disabled ? 1 : 0)});
   /* filter: grayscale(1); */
-
 `;
