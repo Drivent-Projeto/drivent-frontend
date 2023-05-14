@@ -10,7 +10,7 @@ export default function Room({ room, setSelectedRoom, selected, disabled }) {
       <StyledRoom selected={selected} onClick={setSelected} disabled={disabled}>
         <h1>{room.id}</h1>
         <div>
-          {Array.from({ length: room.capacity - room.Booking.length - (selected ? 1: 0) }).map(() => (
+          {Array.from({ length: room.capacity - room.Booking.length - (selected && 1) }).map(() => (
             <BsPerson />
           ))}
           {selected && <BsPersonFill fill="#FF4791" />}
