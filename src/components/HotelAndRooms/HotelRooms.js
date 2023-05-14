@@ -9,7 +9,13 @@ export default function HotelRooms({ rooms, selectedRoom, setSelectedRoom }) {
       <TitleAndSubtitle subtitle={'Ótima pedida! Agora escolha seu quarto:'} />
       <RommContainer>
         {rooms.map((room) => (
-          <Room room={room} setSelectedRoom={setSelectedRoom} selected={selectedRoom?.id === room.id} />
+          <Room
+            key={room.id}
+            room={room}
+            setSelectedRoom={setSelectedRoom}
+            selected={selectedRoom?.id === room.id}
+            disabled={room.Booking.length >= room.capacity}
+          />
         ))}
       </RommContainer>
     </>
