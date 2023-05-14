@@ -2,20 +2,31 @@ import styled from 'styled-components';
 import useHotels from '../../hooks/api/useHotels';
 import { TitleAndSubtitle } from '../TitleAndSubtitle';
 import HotelCard from './HotelCard';
+import { useState } from 'react';
+import HotelRooms from './HotelRooms';
 
 export function HotelAndRooms() {
   const { hotels } = useHotels();
+  const [selectedHotel, setSelectedHotel] = useState(null);
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
   return (
     <>
       <TitleAndSubtitle title={'Escolha de hotel e quarto'} subtitle={'Primeiro, escolha seu hotel'} />
       <HotelContainer>
         {hotels?.map((hotel) => (
-          <HotelCard key={hotel.id} hotel={hotel} />
+          <HotelCard
+            key={hotel.id}
+            hotel={hotel}
+            selected={selectedHotel?.id === hotel.id}
+            setSelectedHotel={setSelectedHotel}
+            setSelectedRoom={setSelectedRoom}
+          />
         ))}
       </HotelContainer>
-      <TitleAndSubtitle subtitle={'Ótima pedida! Agora escolha seu quarto:'} />
-
+      {selectedHotel && (
+        <HotelRooms rooms={selectedHotel.Rooms} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />
+      )}
     </>
   );
 }
@@ -28,7 +39,6 @@ const HotelContainer = styled.div`
   > div {
     width: 196px;
     height: 264px;
-    background: #ebebeb;
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -37,6 +47,9 @@ const HotelContainer = styled.div`
     text-align: left;
     padding-top: 16px;
     padding-bottom: 22px;
+    :hover {
+      cursor: pointer;
+    }
 
     > img {
       width: 168px;
