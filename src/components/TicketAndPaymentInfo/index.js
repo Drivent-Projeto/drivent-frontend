@@ -92,9 +92,10 @@ export default function TicketAndPaymentInfo() {
   };
 
   function textDisplayedChosenTicket(modality) {
-    if(!modality.name) return 'Online';
-    if(modality.name === 'Presencial hotel') return 'Presencial + Com Hotel';
-    if(modality.name === 'presencial') return 'Presencial + Sem Hotel';
+    console.log(modality);
+    if(modality.isRemote) return 'Online';
+    else if(modality.includesHotel ) return 'Presencial + Com Hotel';
+    else return 'Presencial + Sem Hotel';
   }
 
   function finisherPayment() {
@@ -182,7 +183,7 @@ export default function TicketAndPaymentInfo() {
           <StyledSubT>Ingresso escolhido</StyledSubT>
           <OptionsContayner>
             <ChosenTicketStyle>
-              <h2>{textDisplayedChosenTicket(selectedModality)}</h2>
+              <h2>{textDisplayedChosenTicket(lastType)}</h2>
               <h3>R$ {lastType.isRemote ? lastType?.price : selectedModality?.price}</h3>
             </ChosenTicketStyle> 
           </OptionsContayner>   
