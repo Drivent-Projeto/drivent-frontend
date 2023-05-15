@@ -10,12 +10,12 @@ export default function Room({ room, setSelectedRoom, selected, disabled }) {
       <StyledRoom selected={selected} onClick={setSelected} disabled={disabled}>
         <h1>{room.id}</h1>
         <div>
-          {Array.from({ length: room.capacity - room.Booking.length - (selected && 1) }).map(() => (
-            <BsPerson />
+          {Array.from({ length: room.capacity - room.Booking.length - (selected && 1) }).map((_x, index) => (
+            <BsPerson key={index} />
           ))}
-          {selected && <BsPersonFill fill="#FF4791" />}
-          {room.Booking.map(() => (
-            <BsPersonFill />
+          {selected && <BsPersonFill key={'selected'} fill="#FF4791" />}
+          {room.Booking.map((_x, index) => (
+            <BsPersonFill key={index} />
           ))}
         </div>
       </StyledRoom>

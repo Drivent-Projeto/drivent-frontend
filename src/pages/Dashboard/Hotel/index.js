@@ -7,40 +7,41 @@ export default function Hotel() {
 
   return (
     <div>
-      {!ticket && (
-        <EmptPage
-          pageName="Escolha de hotel e quarto"
-          message="Você precisa ter confirmado pagamento antes
+      {/* {!ticket ||
+        (ticket?.status === 'RESERVED' && (
+          <EmptPage
+            pageName="Escolha de hotel e quarto"
+            message="Você precisa ter confirmado pagamento antes
           de fazer a escolha de hospedagem"
-        />
-      )}
+          />
+        ))}
 
-      {ticket?.TicketType.includesHotel ? (
+      {ticket?.TicketType.includesHotel && ticket?.status !== 'RESERVED' ? (
         <HotelAndRooms />
-      ): (
+      ) : (
         <EmptPage
           pageName="Escolha de hotel e quarto"
           message="Sua modalidade de ingresso não inclui hospedagem<br />Prossiga para a escolha de atividades"
         />
-      )}
+      )} */}
 
-      {/* {ticket ? (
-              ticket.isRemote ? (
-                <EmptPage
-                  pageName="Escolha de hotel e quarto"
-                  message="Sua modalidade de ingresso não inclui hospedagem
+      {(ticket && ticket?.status !== 'RESERVED') ? (
+        ticket.isRemote ? (
+          <EmptPage
+            pageName="Escolha de hotel e quarto"
+            message="Sua modalidade de ingresso não inclui hospedagem
                   Prossiga para a escolha de atividades"
-                />
-              ) : (
-                <TicketAndPaymentInfo />
-              )
-            ) : (
-              <EmptPage
-                pageName="Escolha de hotel e quarto"
-                message="Você precisa ter confirmado pagamento antes
+          />
+        ) : (
+          <HotelAndRooms />
+        )
+      ) : (
+        <EmptPage
+          pageName="Escolha de hotel e quarto"
+          message="Você precisa ter confirmado pagamento antes
                 de fazer a escolha de hospedagem"
-              />
-            )} */}
+        />
+      )}
     </div>
   );
 }
