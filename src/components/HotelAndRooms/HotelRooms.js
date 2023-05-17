@@ -3,7 +3,6 @@ import { TitleAndSubtitle } from '../TitleAndSubtitle';
 import Room from './Room';
 
 export default function HotelRooms({ rooms, selectedRoom, setSelectedRoom }) {
-  console.log(rooms);
   return (
     <>
       <TitleAndSubtitle subtitle={'Ótima pedida! Agora escolha seu quarto:'} />

@@ -7,26 +7,8 @@ export default function Hotel() {
 
   return (
     <div>
-      {/* {!ticket ||
-        (ticket?.status === 'RESERVED' && (
-          <EmptPage
-            pageName="Escolha de hotel e quarto"
-            message="Você precisa ter confirmado pagamento antes
-          de fazer a escolha de hospedagem"
-          />
-        ))}
-
-      {ticket?.TicketType.includesHotel && ticket?.status !== 'RESERVED' ? (
-        <HotelAndRooms />
-      ) : (
-        <EmptPage
-          pageName="Escolha de hotel e quarto"
-          message="Sua modalidade de ingresso não inclui hospedagem<br />Prossiga para a escolha de atividades"
-        />
-      )} */}
-
       {(ticket && ticket?.status !== 'RESERVED') ? (
-        ticket.isRemote ? (
+        !ticket.TicketType.includesHotel ? (
           <EmptPage
             pageName="Escolha de hotel e quarto"
             message="Sua modalidade de ingresso não inclui hospedagem
