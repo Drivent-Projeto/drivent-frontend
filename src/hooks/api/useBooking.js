@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import * as ticketApi from '../../services/ticketApi';
+import * as bookingApi from '../../services/bookingApi';
 import useToken from '../useToken';
 
-export default function useTicket() {
+export default function useBooking() {
   const token = useToken();
-  const [ticket, setTicket] = useState(null);
+  const [booking, setBooking] = useState(null);
   const [reloadTrigger, setReloadTrigger] = useState(false);
 
   const reload = () => {
@@ -12,22 +12,22 @@ export default function useTicket() {
   };
 
   useEffect(() => {
-    const fetchTicket = async() => {
+    const fetchBooking = async() => {
       try {
-        const response = await ticketApi.getUserTicket(token);
-        const ticketData = await response;
-        setTicket(ticketData);
+        const response = await bookingApi.getlistBooking(token);
+        const bookingData = await response;
+        setBooking(bookingData);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error('Erro ao buscar o ticket:', error);
       }
     };
 
-    fetchTicket();
+    fetchBooking();
   }, [token, reloadTrigger]);
 
   return {
-    ticket,
+    booking,
     reload,
   };
 }

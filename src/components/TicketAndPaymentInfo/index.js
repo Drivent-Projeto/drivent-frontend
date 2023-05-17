@@ -14,7 +14,7 @@ import OptionButton from './OptionButton';
 
 export default function TicketAndPaymentInfo() {
   const { types } = useTicketTypes();
-  const { ticket } = useTicket();
+  const { ticket, reload } = useTicket();
   const [ticketValue, setTicketValue] = useState(0);
   const [hotelValue, setHotelValue] = useState(0); // eslint-disable-next-line
   const [total, setTotal] = useState(ticketValue + hotelValue);
@@ -46,11 +46,12 @@ export default function TicketAndPaymentInfo() {
   }, [ticket]);
 
   async function submitTicket() {
-    const newData = { ticketTypeId: selectedModality.id };
+    const newData = { ticketTypeId: selectedModality.id ? selectedModality.id : selectedType.id };
     try {
       await saveTicket(newData);
       setLayout(false);
       toast('Ingresso escolhido com sucesso!');
+      handleReload();
     } catch (err) {
       toast('Não foi possível salvar ingresso escolhido!');
     }
@@ -91,8 +92,11 @@ export default function TicketAndPaymentInfo() {
     });
   };
 
+  const handleReload = () => {
+    reload();
+  };
+
   function textDisplayedChosenTicket(modality) {
-    console.log(modality);
     if(modality.isRemote) return 'Online';
     else if(modality.includesHotel ) return 'Presencial + Com Hotel';
     else return 'Presencial + Sem Hotel';
