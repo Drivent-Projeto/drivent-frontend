@@ -27,9 +27,7 @@ export function RoomTypes({ Rooms }) {
     text = 'No Room';
     break;
   }
-  return (
-    <>
-      <h3>{text}</h3>
-    </>
+  return (    
+    <>{text}</>
   );
 }

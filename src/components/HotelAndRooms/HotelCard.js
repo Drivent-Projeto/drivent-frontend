@@ -17,7 +17,7 @@ export default function HotelCard({ hotel, selected, setSelectedHotel, setSelect
       <img src={hotel.image} alt="hotel" />
       <h1>{hotel.name}</h1>
       <h2>Tipos de acomodação:</h2>
-      {hotelRooms && <RoomTypes Rooms={hotelRooms.Rooms} />}
+      <h3>{hotelRooms && <RoomTypes Rooms={hotelRooms.Rooms} />}</h3>
       <h2>Vagas disponíveis:</h2>
       <h3>{emptyRoomSpace}</h3>
     </HotelCardColorContainer>

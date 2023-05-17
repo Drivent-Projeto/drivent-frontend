@@ -31,6 +31,7 @@ const StyledRoom = styled.button`
   border-radius: 10px;
   background-color: ${({ selected, disabled }) => (disabled ? '#E9E9E9' : selected ? '#FFEED2' : 'transparent')};
   padding: 0 16px;
+  cursor: pointer;
 
   align-items: center;
   justify-content: space-between;
