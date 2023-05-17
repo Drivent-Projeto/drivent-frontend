@@ -1,15 +1,15 @@
-import styled from 'styled-components';
-import useHotels from '../../hooks/api/useHotels';
-import { TitleAndSubtitle } from '../TitleAndSubtitle';
-import HotelCard from './HotelCard';
-import BookingCard from './BookingCard';
-import { useState } from 'react';
-import HotelRooms from './HotelRooms';
-import Button from '../Form/Button';
-import useSaveBooking from '../../hooks/api/useSaveBooking';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import styled from 'styled-components';
 import useBooking from '../../hooks/api/useBooking';
-import { useEffect } from 'react';
+import useHotels from '../../hooks/api/useHotels';
+import useSaveBooking from '../../hooks/api/useSaveBooking';
+import useUpdateBooking from '../../hooks/api/useUpdateBooking';
+import Button from '../Form/Button';
+import { TitleAndSubtitle } from '../TitleAndSubtitle';
+import BookingCard from './BookingCard';
+import HotelCard from './HotelCard';
+import HotelRooms from './HotelRooms';
 
 export function HotelAndRooms() {
   const { hotels } = useHotels();
@@ -18,6 +18,7 @@ export function HotelAndRooms() {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [layout, setLayout] = useState(true);
   const { saveBooking } = useSaveBooking();
+  const { updateBooking } = useUpdateBooking();
 
   useEffect(() => {
     if (booking) {
@@ -29,12 +30,17 @@ export function HotelAndRooms() {
   async function submitBooking() {
     const newData = { roomId: selectedRoom.id };
     try {
-      await saveBooking(newData);
+      if (booking) {
+        await updateBooking({ bookingId: booking.id, roomId: selectedRoom.id });
+      } else {
+        await saveBooking(newData);
+      }
       setLayout(false);
       toast('Quarto reservado com sucesso!');
       handleReload();
     } catch (err) {
-      toast('Não foi possível reservar quarto escolhido!');
+      console.log(err);
+      toast('Não foi possível reservar o quarto escolhido!');
     }
   }
 
@@ -42,7 +48,7 @@ export function HotelAndRooms() {
     reload();
   };
 
-  async function updateBooking() {
+  async function changeBooking() {
     setLayout(true);
   }
 
@@ -84,7 +90,7 @@ export function HotelAndRooms() {
             />            
           </HotelContainer>
              
-          <Button type="submit" onClick={() => updateBooking()}>
+          <Button type="submit" onClick={() => changeBooking()}>
             TROCAR DE QUARTO
           </Button>
           

@@ -20,8 +20,8 @@ export async function getlistBooking(token) {
   return response.data;
 }
 
-export async function putChangeBooking(id, token) {
-  const response = await api.put(`/booking/${id}`, {
+export async function putChangeBooking(bookingId, roomId, token) {
+  const response = await api.put(`/booking/${bookingId}`, { roomId }, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
