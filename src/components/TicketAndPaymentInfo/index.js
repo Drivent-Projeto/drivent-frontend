@@ -135,7 +135,6 @@ export default function TicketAndPaymentInfo() {
                       baseValue={hotelValue}
                       titles={['Online', 'Presencial']}
                       setLastType={setLastType}
-                      plus={selectedModality}
                     />
                   )
               )}
