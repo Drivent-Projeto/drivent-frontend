@@ -31,7 +31,7 @@ export default function TicketAndPaymentInfo() {
     expiry: '',
     cvc: '',
     focused: '',
-  }); 
+  });
 
   useEffect(() => {
     if (ticket) {
@@ -55,15 +55,16 @@ export default function TicketAndPaymentInfo() {
     } catch (err) {
       toast('Não foi possível salvar ingresso escolhido!');
     }
-  };
+  }
 
   async function submitPayment() {
-    const newData = { 
-      ticketId: ticket.id, 
-      cardData: { 
-        number: cardData.number, 
-        issuer: cardData.name 
-      } };
+    const newData = {
+      ticketId: ticket.id,
+      cardData: {
+        number: cardData.number,
+        issuer: cardData.name,
+      },
+    };
 
     try {
       await savePayment(newData);
@@ -72,20 +73,20 @@ export default function TicketAndPaymentInfo() {
     } catch (err) {
       toast('Não foi possível efetuar pagamento do ingresso!');
     }
-  };
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-  
+
     setCardData({
       ...cardData,
       [name]: value,
     });
   };
-  
+
   const handleInputFocus = (e) => {
     const { name } = e.target;
-  
+
     setCardData({
       ...cardData,
       focused: name,
@@ -97,8 +98,9 @@ export default function TicketAndPaymentInfo() {
   };
 
   function textDisplayedChosenTicket(modality) {
-    if(modality.isRemote) return 'Online';
-    else if(modality.includesHotel ) return 'Presencial + Com Hotel';
+    console.log(modality);
+    if (modality.isRemote) return 'Online';
+    else if (modality.includesHotel) return 'Presencial + Com Hotel';
     else return 'Presencial + Sem Hotel';
   }
 
@@ -108,12 +110,12 @@ export default function TicketAndPaymentInfo() {
     } else {
       submitPayment();
     }
-  };
+  }
 
   return (
     <>
       <StyledTypography variant="h4">Ingresso e pagamento</StyledTypography>
-      {layout ?(
+      {layout ? (
         <>
           <StyledSubT>Primeiro, escolha sua modalidade de ingresso</StyledSubT>
           <OptionsContayner>
@@ -144,41 +146,40 @@ export default function TicketAndPaymentInfo() {
               <StyledSubT>Ótimo! Agora escolha sua modalidade de hospedagem</StyledSubT>
               <OptionsContayner>
                 {types &&
-                    types.map(
-                      (t) =>
-                        !t.isRemote && (
-                          <OptionButton
-                            key={t.id}
-                            name={!t.includesHotel}
-                            type={t}
-                            value={t.price - ticketValue}
-                            selected={selectedModality}
-                            setSelected={setSelectedModality}
-                            setTotal={setTotal}
-                            addValue={setHotelValue}
-                            baseValue={ticketValue}
-                            titles={['Sem Hotel', 'Com Hotel']}
-                            setLastType={setLastType}
-                            plus={true}
-                          />
-                        )
-                    )}
+                  types.map(
+                    (t) =>
+                      !t.isRemote && (
+                        <OptionButton
+                          key={t.id}
+                          name={!t.includesHotel}
+                          type={t}
+                          value={t.price - ticketValue}
+                          selected={selectedModality}
+                          setSelected={setSelectedModality}
+                          setTotal={setTotal}
+                          addValue={setHotelValue}
+                          baseValue={ticketValue}
+                          titles={['Sem Hotel', 'Com Hotel']}
+                          setLastType={setLastType}
+                          plus={true}
+                        />
+                      )
+                  )}
               </OptionsContayner>
             </>
           )}
 
-          {lastType !== 0 &&
-            lastType && (
+          {lastType !== 0 && lastType && (
             <>
               <StyledSubT>
-                  Fechado! O total ficou em <strong>R$ {lastType.isRemote ? lastType?.price : selectedModality?.price}</strong>.
-                  Agora é só confirmar
+                Fechado! O total ficou em{' '}
+                <strong>R$ {lastType.isRemote ? lastType?.price : selectedModality?.price}</strong>. Agora é só
+                confirmar
               </StyledSubT>
-             
+
               <Button type="submit" onClick={() => submitTicket()}>
-                    RESERVAR INGRESSO
+                RESERVAR INGRESSO
               </Button>
-              
             </>
           )}
         </>
@@ -189,11 +190,11 @@ export default function TicketAndPaymentInfo() {
             <ChosenTicketStyle>
               <h2>{textDisplayedChosenTicket(lastType)}</h2>
               <h3>R$ {lastType.isRemote ? lastType?.price : selectedModality?.price}</h3>
-            </ChosenTicketStyle> 
-          </OptionsContayner>   
+            </ChosenTicketStyle>
+          </OptionsContayner>
 
           <StyledSubT>Pagamento</StyledSubT>
-          {!paid ?(
+          {!paid ? (
             <>
               <StyledWrapper>
                 <div>
@@ -202,7 +203,8 @@ export default function TicketAndPaymentInfo() {
                     name={cardData.name}
                     expiry={cardData.expiry}
                     cvc={cardData.cvc}
-                    focused={cardData.focused} />
+                    focused={cardData.focused}
+                  />
                 </div>
                 <ContaynerFormInput>
                   <input
@@ -210,7 +212,7 @@ export default function TicketAndPaymentInfo() {
                     name="number"
                     placeholder="Número do Cartão"
                     onChange={handleInputChange}
-                    onFocus={handleInputFocus} 
+                    onFocus={handleInputFocus}
                   />
                   <p>E.g.: 49..., 51..., 36..., 37...</p>
 
@@ -219,7 +221,7 @@ export default function TicketAndPaymentInfo() {
                     name="name"
                     placeholder="Nome do Titular"
                     onChange={handleInputChange}
-                    onFocus={handleInputFocus} 
+                    onFocus={handleInputFocus}
                   />
 
                   <div>
@@ -228,7 +230,7 @@ export default function TicketAndPaymentInfo() {
                       name="expiry"
                       placeholder="MM/AA"
                       onChange={handleInputChange}
-                      onFocus={handleInputFocus} 
+                      onFocus={handleInputFocus}
                     />
 
                     <input
@@ -236,86 +238,87 @@ export default function TicketAndPaymentInfo() {
                       name="cvc"
                       placeholder="CVC"
                       onChange={handleInputChange}
-                      onFocus={handleInputFocus} 
+                      onFocus={handleInputFocus}
                     />
-                  </div>                  
-
+                  </div>
                 </ContaynerFormInput>
-              </StyledWrapper><Button type="button" onClick={() => finisherPayment()}>
-                  FINALIZAR PAGAMENTO
+              </StyledWrapper>
+              <Button type="button" onClick={() => finisherPayment()}>
+                FINALIZAR PAGAMENTO
               </Button>
             </>
           ) : (
             <PaymentConfirmedContainer>
-              <img src={vetor} alt='Ok'/>
+              <img src={vetor} alt="Ok" />
               <div>
-                <h2><strong>Pagamento confirmado!</strong></h2>
+                <h2>
+                  <strong>Pagamento confirmado!</strong>
+                </h2>
                 <h2>Prossiga para escolha de hospedagem e atividades</h2>
-              </div>              
+              </div>
             </PaymentConfirmedContainer>
           )}
-        </>       
-      )}         
+        </>
+      )}
     </>
   );
 }
 
-const PaymentConfirmedContainer = styled.div`  
-    width: 420px;
-    height: 100%; 
-    margin-top: 19px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    h2{
+const PaymentConfirmedContainer = styled.div`
+  width: 420px;
+  height: 100%;
+  margin-top: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  h2 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #454545;
+  }
+`;
+
+const ContaynerFormInput = styled.form`
+  width: 400px;
+  height: 100%;
+  margin: 0 30px;
+  input {
+    margin-top: 10px;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px #d3d3d3 solid;
+    ::placeholder {
       font-family: 'Roboto';
       font-style: normal;
       font-weight: 400;
-      font-size: 16px;
-      line-height: 19px;
-      color: #454545;
+      font-size: 15px;
+      line-height: 23px;
+      padding: 0 6px;
+      color: #8e8e8e;
     }
-`;
-
-const ContaynerFormInput = styled.form`  
-    width: 400px;
-    height: 100%; 
-    margin: 0 30px;
-    input{
-      margin-top: 10px;
-      width: 100%;
-      height: 40px;
-      border-radius: 5px;
-      border: 1px #d3d3d3 solid;
-      ::placeholder{
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 15px;
-        line-height: 23px;
-        padding: 0 6px;
-        color: #8e8e8e;
-      }
+  }
+  p {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 23px;
+    color: #8e8e8e;
+  }
+  div {
+    display: flex;
+    justify-content: space-between;
+    input:nth-of-type(1) {
+      width: 220px;
     }
-    p{
-      font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 15px;
-        line-height: 23px;
-        color: #8e8e8e;
+    input:nth-of-type(2) {
+      width: 110px;
     }
-    div{
-      display: flex;
-      justify-content: space-between;
-      input:nth-of-type(1){
-      width: 220px;    
-      }
-      input:nth-of-type(2){
-        width: 110px;    
-      }
-    }
-    
+  }
 `;
 
 const StyledWrapper = styled.div`
@@ -345,11 +348,11 @@ const OptionsContayner = styled.div`
 const ChosenTicketStyle = styled.button`
   width: 290px;
   height: 108px;
-  background-color: #FFEED2;
+  background-color: #ffeed2;
   border-radius: 20px;
   border: 1px solid #cecece;
   margin-bottom: 13px;
-  h2{
+  h2 {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
@@ -358,7 +361,7 @@ const ChosenTicketStyle = styled.button`
     color: #454545;
     text-align: center;
   }
-  h3{
+  h3 {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
