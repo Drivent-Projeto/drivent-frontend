@@ -8,7 +8,7 @@ export default function Room({ room, setSelectedRoom, selected, disabled }) {
   return (
     <>
       <StyledRoom selected={selected} onClick={setSelected} disabled={disabled}>
-        <h1>{room.id}</h1>
+        <h1>{room.name}</h1>
         <div>
           {Array.from({ length: room.capacity - room.Booking.length - (selected && 1) }).map((_x, index) => (
             <BsPerson key={index} />
