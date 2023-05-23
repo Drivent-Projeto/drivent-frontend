@@ -98,7 +98,6 @@ export default function TicketAndPaymentInfo() {
   };
 
   function textDisplayedChosenTicket(modality) {
-    console.log(modality);
     if (modality.isRemote) return 'Online';
     else if (modality.includesHotel) return 'Presencial + Com Hotel';
     else return 'Presencial + Sem Hotel';

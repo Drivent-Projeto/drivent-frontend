@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as ticketApi from '../../services/ticketApi';
 import useToken from '../useToken';
 
