@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import useEvent from '../../hooks/api/useEvent';
 import Button from '../Form/Button';
 import { TitleAndSubtitle } from '../TitleAndSubtitle';
+import ActivityButton from './ActivityButton';
 
 export function ActivitiesComponent() {
   const { event } = useEvent();
@@ -37,6 +38,10 @@ export function ActivitiesComponent() {
             {day}
           </Button>
         ))}
+        <ActivityButton icon={'free'} empty={Math.floor(Math.random() * 50)}/>
+        <ActivityButton icon={'registered'}/>
+        <ActivityButton icon={'full'}/>
+
       </HotelContainer>
     </>
   );
