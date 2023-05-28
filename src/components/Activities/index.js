@@ -3,13 +3,14 @@ import 'dayjs/locale/pt-br';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useEvent from '../../hooks/api/useEvent';
-import Button from '../Form/Button';
+//import Button from '../Form/Button';
 import { TitleAndSubtitle } from '../TitleAndSubtitle';
 import ActivityButton from './ActivityButton';
 
 export function ActivitiesComponent() {
   const { event } = useEvent();
   const [ eventDays, setEventDays ] = useState([]);
+  const [selectedDay, setSelectedDay] = useState(null);
 
   dayjs.locale('pt-br');
   
@@ -28,16 +29,32 @@ export function ActivitiesComponent() {
       setEventDays(days);
     }
   }, [event]);
-  
+
+  const selectDayButton = (day) => {
+    setSelectedDay(day);
+  };
+ 
   return (
     <>
-      <TitleAndSubtitle title={'Escolha de atividades'} subtitle={'Primeiro, filtre pelo dia do evento:'} />
+      {selectedDay ?         
+        <TitleAndSubtitle title={'Escolha de atividades'} />
+        :
+        <TitleAndSubtitle title={'Escolha de atividades'} subtitle={'Primeiro, filtre pelo dia do evento:'} />
+      }
       <HotelContainer>
-        {eventDays.map((day) => (
-          <Button key={day} type="button">
-            {day}
-          </Button>
-        ))}
+        <div>
+          {eventDays.map((day) => (
+            <Button 
+              key={day}
+              type="button"
+              isSelected={selectedDay === day}
+              onClick={() => selectDayButton(day)}
+            >
+              {day}
+            </Button>
+          ))}
+        </div>
+
         <ActivityButton icon={'free'} empty={Math.floor(Math.random() * 50)}/>
         <ActivityButton icon={'registered'}/>
         <ActivityButton icon={'full'}/>
@@ -52,9 +69,28 @@ const HotelContainer = styled.div`
   flex-wrap: wrap;
   margin-top: 18px;
   gap: 17px;
-
-  > button {
-    width: 140px;
-    text-transform: capitalize;
-  }
+  display: flex;
+  flex-direction: column;
 `;
+
+const Button = styled.button`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: #000000;
+
+  width: 131px;
+  height: 37px;
+  text-transform: capitalize;
+  margin-right: 17px;
+  background-color: ${(props) => (props.isSelected ? '#FFD37D' : '#E0E0E0')};
+  padding: 10px;
+  border: none;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
