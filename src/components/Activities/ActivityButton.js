@@ -2,12 +2,18 @@ import { BiLogIn, BiCheckCircle } from 'react-icons/bi';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import styled from 'styled-components';
 
-export default function ActivityButton({ icon, empty }) {
+export default function ActivityButton({ icon, empty, activityId }) {
   const iconOptions = {
-    free: (<><BiLogIn/> <p>{empty} vagas</p></>),
+    free: (<><BiLogIn onClick={registerActivity}/> <p>{empty} vagas</p></>),
     registered: (<><BiCheckCircle/> <p>Inscrito</p></>),
     full: (<><AiOutlineCloseCircle/> <p>Esgotado</p></>) 
   };
+  function registerActivity(e) {
+    e.preventdefault();
+  }
+  // const userActivities = [{ id: 1 }, { id: 2 }];
+  //  if(userActivities.includes())
+  //   else if(activity.capacity >= activity._count.userActivity) icon = 'full';
 
   return(
     <StyledActivityButton color={icon === 'full'}>

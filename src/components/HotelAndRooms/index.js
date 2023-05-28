@@ -39,7 +39,6 @@ export function HotelAndRooms() {
       toast('Quarto reservado com sucesso!');
       handleReload();
     } catch (err) {
-      console.log(err);
       toast('Não foi possível reservar o quarto escolhido!');
     }
   }
