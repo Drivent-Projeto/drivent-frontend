@@ -16,7 +16,7 @@ export default function ActivityButton({ icon, empty, activityId }) {
   //   else if(activity.capacity >= activity._count.userActivity) icon = 'full';
 
   return(
-    <StyledActivityButton color={icon === 'full'}>
+    <StyledActivityButton icon={icon}>
       {iconOptions[icon]}
     </StyledActivityButton>
   );
@@ -24,7 +24,7 @@ export default function ActivityButton({ icon, empty, activityId }) {
 
 const StyledActivityButton = styled.div`
 display: column;
-color: ${({ color }) => color? '#CC6666':'#078632'};
+color: ${({ icon }) => icon === 'full'? '#CC6666':'#078632'};
 text-align: center;
   :hover {
       cursor: pointer;

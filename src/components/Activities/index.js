@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import useEvent from '../../hooks/api/useEvent';
 //import Button from '../Form/Button';
 import { TitleAndSubtitle } from '../TitleAndSubtitle';
-import ActivityButton from './ActivityButton';
+import ActivitiesList from './ActivitiesList';
 
 export function ActivitiesComponent() {
   const { event } = useEvent();
@@ -24,16 +24,12 @@ export function ActivitiesComponent() {
       
       for (let i = 0; i <= diffInDays; i++) {
         const day = startsAt.add(i, 'day');
-        days.push(day.format('dddd, DD/MM').replace(/-feira/g, ''));
+        days.push(day);
       }
       setEventDays(days);
     }
   }, [event]);
 
-  const selectDayButton = (day) => {
-    setSelectedDay(day);
-  };
- 
   return (
     <>
       {selectedDay ?         
@@ -47,18 +43,15 @@ export function ActivitiesComponent() {
             <Button 
               key={day}
               type="button"
-              isSelected={selectedDay === day}
-              onClick={() => selectDayButton(day)}
+              isSelected={selectedDay === day.format('MM-DD')}
+              onClick={() => setSelectedDay(day.format('MM-DD'))}
             >
-              {day}
+              {day.format('dddd, DD/MM').replace(/-feira/g, '')}
             </Button>
           ))}
         </div>
 
-        <ActivityButton icon={'free'} empty={Math.floor(Math.random() * 50)}/>
-        <ActivityButton icon={'registered'}/>
-        <ActivityButton icon={'full'}/>
-
+        {selectedDay && <ActivitiesList day={selectedDay} />}
       </HotelContainer>
     </>
   );
