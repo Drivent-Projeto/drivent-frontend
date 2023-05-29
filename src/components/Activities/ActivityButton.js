@@ -11,7 +11,7 @@ export default function ActivityButton({ icon, empty, activityId }) {
     full: (<><AiOutlineCloseCircle/> <p>Esgotado</p></>) 
   };
   function registerActivity(e) {
-    e.preventdefault();
+    e.preventDefault();
   }
   // const userActivities = [{ id: 1 }, { id: 2 }];
   //  if(userActivities.includes())
