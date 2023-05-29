@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 import ActivityButton from './ActivityButton';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 
 const ActivityCard = ({ activity }) => {
   const qtdHours = dayjs(activity.endsAt).diff(dayjs(activity.startsAt), 'hour');
   const height = qtdHours > 1 ? ((80 * qtdHours) + (10 * (qtdHours-1))) : 80;
   const available = activity.capacity - activity.filled;
+  const [registered, setRegistered] = useState(activity.registered);
 
   return (
-    <Card height={height} registered={activity.registered}>
+    <Card height={height} registered={registered}>
       <div>
         <h3>{activity.name}</h3>
         <p>{`${dayjs(activity.startsAt).format('HH:mm')} - ${dayjs(activity.endsAt).format('HH:mm')}`}</p>
@@ -18,7 +20,7 @@ const ActivityCard = ({ activity }) => {
           <ActivityButton icon={'registered'} />
         ) : (
           available > 0 ? (
-            <ActivityButton icon={'free'} empty={available} activityId={activity.id}/>
+            <ActivityButton icon={'free'} empty={available} activityId={activity.id} setRegistered={setRegistered}/>
           ) : (
             <ActivityButton icon={'full'}/>
           )

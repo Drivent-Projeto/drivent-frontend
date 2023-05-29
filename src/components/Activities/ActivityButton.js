@@ -3,9 +3,12 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import styled from 'styled-components';
 import useSaveActivite from '../../hooks/api/useSaveActivite';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
+import { set } from 'date-fns';
 
-export default function ActivityButton({ icon, empty, activityId }) {
+export default function ActivityButton({ icon, empty, activityId, setRegistered }) {
   const { saveActivite } = useSaveActivite();
+  const [iconState, setIconState] = useState(icon);
   const iconOptions = {
     free: (<><BiLogIn onClick={registerActivity}/> <p>{empty} vagas</p></>),
     registered: (<><BiCheckCircle/> <p>Inscrito</p></>),
@@ -18,6 +21,8 @@ export default function ActivityButton({ icon, empty, activityId }) {
     const newData = { activityId };
     try {
       await saveActivite(newData);
+      setIconState('registered');
+      setRegistered(true);
       toast('Registrado na atividade com sucesso!');
     } catch (err) {
       toast('Não foi possível registrar a atividade!');
@@ -28,8 +33,8 @@ export default function ActivityButton({ icon, empty, activityId }) {
   //   else if(activity.capacity >= activity._count.userActivity) icon = 'full';
 
   return(
-    <StyledActivityButton icon={icon}>
-      {iconOptions[icon]}
+    <StyledActivityButton icon={iconState}>
+      {iconOptions[iconState]}
     </StyledActivityButton>
   );
 }
