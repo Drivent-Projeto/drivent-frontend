@@ -1,8 +1,10 @@
 import { BiLogIn, BiCheckCircle } from 'react-icons/bi';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import styled from 'styled-components';
+import useSaveActivite from '../../hooks/api/useSaveActivite';
 
 export default function ActivityButton({ icon, empty, activityId }) {
+  const { saveActivite } = useSaveActivite();
   const iconOptions = {
     free: (<><BiLogIn onClick={registerActivity}/> <p>{empty} vagas</p></>),
     registered: (<><BiCheckCircle/> <p>Inscrito</p></>),
