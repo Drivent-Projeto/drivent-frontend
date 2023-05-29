@@ -15,10 +15,10 @@ const ActivityCard = ({ activity }) => {
       </div>
       <div>
         {activity.registered ? (
-          <ActivityButton icon={'registered'}/>
+          <ActivityButton icon={'registered'} />
         ) : (
           available > 0 ? (
-            <ActivityButton icon={'free'} empty={available}/>
+            <ActivityButton icon={'free'} empty={available} activityId={activity.id}/>
           ) : (
             <ActivityButton icon={'full'}/>
           )

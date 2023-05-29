@@ -2,6 +2,7 @@ import { BiLogIn, BiCheckCircle } from 'react-icons/bi';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import styled from 'styled-components';
 import useSaveActivite from '../../hooks/api/useSaveActivite';
+import { toast } from 'react-toastify';
 
 export default function ActivityButton({ icon, empty, activityId }) {
   const { saveActivite } = useSaveActivite();
@@ -10,8 +11,17 @@ export default function ActivityButton({ icon, empty, activityId }) {
     registered: (<><BiCheckCircle/> <p>Inscrito</p></>),
     full: (<><AiOutlineCloseCircle/> <p>Esgotado</p></>) 
   };
-  function registerActivity(e) {
-    e.preventdefault();
+  
+  async function registerActivity(e) {
+    e.preventDefault();
+
+    const newData = { activityId };
+    try {
+      await saveActivite(newData);
+      toast('Registrado na atividade com sucesso!');
+    } catch (err) {
+      toast('Não foi possível registrar a atividade!');
+    }
   }
   // const userActivities = [{ id: 1 }, { id: 2 }];
   //  if(userActivities.includes())
