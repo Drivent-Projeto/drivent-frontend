@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import useSaveActivite from '../../hooks/api/useSaveActivite';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
-import { set } from 'date-fns';
 
 export default function ActivityButton({ icon, empty, activityId, setRegistered }) {
   const { saveActivite } = useSaveActivite();
@@ -28,10 +27,7 @@ export default function ActivityButton({ icon, empty, activityId, setRegistered 
       toast('Não foi possível registrar a atividade!');
     }
   }
-  // const userActivities = [{ id: 1 }, { id: 2 }];
-  //  if(userActivities.includes())
-  //   else if(activity.capacity >= activity._count.userActivity) icon = 'full';
-
+  
   return(
     <StyledActivityButton icon={iconState}>
       {iconOptions[iconState]}
